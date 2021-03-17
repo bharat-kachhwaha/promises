@@ -9,11 +9,13 @@ function getData() {
             return res.json();
         },(error) => {
             console.log(error);
-        }).then(films => {
-            const filmTitles = films.map (film => film.title);
-            return filmTitles;
-        },(error) => []);
+        }).then(films => getFilmTitles(films)
+        ,(error => []))
   }
-
+function getFilmTitles(films){
+    return films
+    .sort((a,b) => a.episode_id - b.episode_id)
+    .map(film => `${film.episode_id}. ${film.title}`);
+}
   
 export default getData;
